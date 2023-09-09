@@ -1,0 +1,44 @@
+body,
+html {
+  margin: 0;
+  height: 100%;
+}
+
+header {
+  height: 4rem;
+  border-bottom: solid 1rem;
+}
+
+main {
+  min-height: 80vh;
+}
+
+footer {
+  text-align: center;
+}
+
+#duck-images {
+  height: 24rem;
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 12rem;
+
+}
+
+#duck-images div {
+  margin: 0 auto;
+  /* height: 24rem; */
+  width: 80vw;
+  border: solid 2px grey;
+}
+
+#duck-images img {
+  width: 300px;
+  padding: 3rem;
+}
+
+#image-container {
+  margin: 0 auto;
+  text-align: center;
+  padding-block: 8rem;
+}
