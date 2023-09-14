@@ -18,11 +18,9 @@ footer {
 }
 
 #duck-images {
-  height: 24rem;
   width: 80vw;
   margin: 0 auto;
   margin-top: 12rem;
-
 }
 
 #duck-images div {
@@ -41,4 +39,22 @@ footer {
   margin: 0 auto;
   text-align: center;
   padding-block: 8rem;
+}
+
+
+
+#results {
+  margin: 0 auto;
+  text-align: center;
+  width: fit-content
+}
+
+li {
+  list-style: none;
+  color: white;
+  font-size: 2rem;
+  background-color: rgb(143, 95, 188);
+  margin-block: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 6px;
 }

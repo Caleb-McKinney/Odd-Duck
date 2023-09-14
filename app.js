@@ -2,7 +2,7 @@
 
 const state = {
   ducks: [
-    new Duck("R2D2 Bag", "images/bag.jpg"),
+    new Duck("R2D2 Bag", "images/bag.jpg", "R2D2 Bag"),
     new Duck("Banana Cutter", "images/banana.jpg"),
     new Duck("iBathroom", "images/bathroom.jpg"),
     new Duck("Rain Boots", "images/boots.jpg"),
@@ -23,13 +23,14 @@ const state = {
     new Duck("water-can", "images/water-can.jpg"),
     new Duck("wine-glass", "images/wine-glass.jpg"),
   ],
-  photoContainer: document.getElementById
-  resultsSection: document.getElementById
+  imageContainer: document.getElementById("image-container"),
+  resultsSection: document.getElementById("results"),
+  duckChart: null,
 };
 
 // constructor function for ducks
 
-function Duck(name,filepath) {
+function Duck(name, filePath) {
 this.name = name;
 this.filepath = filePath;
 this.lastClicked = null;
@@ -38,7 +39,7 @@ this.views = 0;
 }
 //method to render duck image
 Duck.prototype.render = function() {
-  const goatImg = document.createElement("img");
+  const duckImg = document.createElement("img");
   duckImg.src = this.filePath;
   duckImg.alt = this.name;
 
@@ -51,14 +52,15 @@ function renderDucks() {
   let duckOne = state.ducks[getRandomInt(0, state.ducks.length)];
   let duckTwo = state.ducks[(0, state.ducks.length)];
 
-  while (duckOne === goatTwo) {
+  while (duckOne === duckTwo) {
      duckOne = state.ducks[getRandomInt(0, state.ducks.length)];
   }
+
   duckOne.views++;
-duckTwo.views++;
+  // duckTwo.views++;
 
 duckOne.render();
-duckTwo.render();
+// duckTwo.render();
 }
 
 renderDucks();
@@ -81,17 +83,66 @@ function handleClickDuck(event) {
 
 function renderResults() {
   state.resultsSection.innerHTML = "";
+  renderChart();
   const resultsElm = document.createElement("ul");
 
   for (let i = 0; i < state.ducks.length; i++) {
-    const goat = state.ducks[i];
+    const duck = state.ducks[i];
 
     const resultItemElm = document.createElement("li");
-    resultItemElm.textContent = `${goat.name} was seen ${goat.views} and was clicked ${goat.votes} times.`;
+    resultItemElm.textContent = `${duck.name} was seen ${duck.views} and was clicked ${duck.votes} times.`;
     resultsElm.appendChild(resultItemElm);
   }
 
   state.resultsSection.appendChild(resultsElm);
+}
+
+function renderChart() {
+  const ctx = document.getElementById("duck-chart");
+
+  const labels = [];
+  const votes = [];
+  const views = [];
+
+  // populate the labels, votes, and views arrays
+  for (let i = 0; i < state.ducks.length; i++) {
+    const duck = state.ducks[i];
+
+    labels.push(duck.name);
+    votes.push(duck.votes);
+    views.push(duck.views);
+  } 
+
+  if (state.duckChart) {
+    state.duckChart.clear();
+    state.duckChart.destroy();
+  }
+
+  state.duckChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "# of Votes",
+          data: votes,
+          borderWidth: 1,
+        },
+        {
+          label: "# of Views",
+          data: views,
+          borderwidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 }
 
 function getRandomInt(min, max) {
@@ -100,5 +151,6 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
-}
 
+
+ 
