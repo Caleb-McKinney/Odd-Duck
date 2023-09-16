@@ -42,14 +42,16 @@ Duck.prototype.render = function() {
   const duckImgTag = document.createElement("img");
   duckImgTag.setAttribute("src", this.filepath);
   duckImgTag.setAttribute("alt", this.name);
-  
+ let imgName = duckImgTag.getAttribute("alt") 
+//  console.log(imgName)
+duckImgTag.addEventListener("click", handleClickDuck)
 console.log("duckImg", duckImgTag)
   state.imageContainer.appendChild(duckImgTag);
 };
 
 function renderDucks() {
   state.imageContainer.innerHTML = "";
-  state.imageContainer.addEventListener("click", handleClickDuck);
+  // state.imageContainer.addEventListener("click", handleClickDuck);
   let duckOne = state.ducks[getRandomInt(0, state.ducks.length)];
   let duckTwo = state.ducks[getRandomInt(0, state.ducks.length)];
   let duckThree = state.ducks[getRandomInt(0, state.ducks.length)];
@@ -78,11 +80,12 @@ renderDucks();
 function handleClickDuck(event) {
   event.preventDefault();
 
-  const target = event.target.src;
-
+  const target = event.target.alt;
+// console.log("event.target.alt", event.target.alt)
   //loop through the ducks array, once we found one that was clicked, we increment the duck objects clicks
   for (let i = 0; i < state.ducks.length; i++) {
-    if (target === state.ducks[i].filepath) {
+    // console.log("state.ducks[i].name", state.ducks[i].name)
+    if (target === state.ducks[i].name) {
       state.ducks[i].votes++;
     }
   }
